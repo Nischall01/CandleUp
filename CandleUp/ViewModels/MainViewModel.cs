@@ -2,6 +2,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
+using CandleUp.Enums;
 using CandleUp.Helpers;
 using CandleUp.Models;
 using CandleUp.Views;
@@ -12,6 +13,8 @@ namespace CandleUp.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    [ObservableProperty] private SortOption _selectedSortOption;
+
     [ObservableProperty] private bool _showAgeFirst = true;
 
     public MainViewModel()
@@ -25,9 +28,69 @@ public partial class MainViewModel : ViewModelBase
             "avares://CandleUp/Assets/icons8-user-48.png"));
     }
 
+    public bool IsSortByNameChecked =>
+        SelectedSortOption is SortOption.NameAscending or SortOption.NameDescending;
+
+    public bool IsSortByDateChecked =>
+        SelectedSortOption is SortOption.DateAscending or SortOption.DateDescending;
+
+    public bool IsSortByPriority =>
+        SelectedSortOption is SortOption.PriorityHighLow or SortOption.PriorityLowHigh;
+
+    public bool IsSortByTimeRemaining =>
+        SelectedSortOption is SortOption.TimeNearestFarthest or SortOption.TimeFarthestNearest;
+
     // Observable list of people
     public ObservableCollection<Person> People { get; } = [];
 
+    partial void OnSelectedSortOptionChanged(SortOption value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(IsSortByNameChecked));
+        OnPropertyChanged(nameof(IsSortByDateChecked));
+        OnPropertyChanged(nameof(IsSortByPriority));
+        OnPropertyChanged(nameof(IsSortByTimeRemaining));
+    }
+
+    [RelayCommand]
+    private void SortOptionNameAscendingSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionNameDescendingSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionDateAscendingSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionDateDescendingSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionPriorityHighLowSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionPriorityLowHighSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionTimeNearestFarthestSelected()
+    {
+    }
+
+    [RelayCommand]
+    private void SortOptionTimeFarthestNearestSelected()
+    {
+    }
 
     //Settings
     [RelayCommand]

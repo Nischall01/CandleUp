@@ -4,6 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:CandleUp.ViewModels"
+    xmlns:local="using:CandleUp.Enums"
+    xmlns:converters="using:CandleUp.Converters"
     mc:Ignorable="d"
     d:DesignWidth="800"
     d:DesignHeight="450"
@@ -15,6 +17,11 @@
     <Design.DataContext>
         <vm:MainViewModel />
     </Design.DataContext>
+
+    <UserControl.Resources>
+        <converters:EnumToBoolConverter
+            x:Key="EnumToBoolConverter" />
+    </UserControl.Resources>
 
     <UserControl.Styles>
         <!-- All button style -->
@@ -63,6 +70,12 @@
             <Setter
                 Property="Width"
                 Value="16" />
+        </Style>
+        <Style
+            Selector="MenuItem" >
+            <Setter
+                Property="FlowDirection"
+                Value="LeftToRight" />
         </Style>
     </UserControl.Styles>
 
@@ -136,6 +149,75 @@
                         Command="{Binding SortCommand}"
                         ToolTip.Tip="Sort"
                         ToolTip.ShowDelay="0" >
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuItem
+                                    Header="Sort by Name"
+                                    ToggleType="Radio"
+                                    IsChecked="{Binding IsSortByNameChecked}" >
+                                    <MenuItem
+                                        Header="A → Z"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.NameAscending}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionNameAscendingSelectedCommand}" />
+                                    <MenuItem
+                                        Header="Z → A"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.NameDescending}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionNameDescendingSelectedCommand}" />
+                                </MenuItem>
+
+                                <MenuItem
+                                    Header="Sort by Date"
+                                    ToggleType="Radio"
+                                    IsChecked="{Binding IsSortByDateChecked}" >
+                                    <MenuItem
+                                        Header="Younger → Older"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.DateAscending}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionDateAscendingSelectedCommand}" />
+                                    <MenuItem
+                                        Header="Older → Younger"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.DateDescending}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionDateDescendingSelectedCommand}" />
+                                </MenuItem>
+
+                                <MenuItem
+                                    Header="Sort by Priority"
+                                    ToggleType="Radio"
+                                    IsChecked="{Binding IsSortByPriority}" >
+                                    <MenuItem
+                                        Header="Highest → Lowest"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.PriorityHighLow}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionPriorityHighLowSelectedCommand}" />
+                                    <MenuItem
+                                        Header="Lowest → Highest"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.PriorityLowHigh}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionPriorityLowHighSelectedCommand}" />
+                                </MenuItem>
+
+                                <MenuItem
+                                    Header="Sort by Time Remaining"
+                                    ToggleType="Radio"
+                                    IsChecked="{Binding IsSortByTimeRemaining}" >
+                                    <MenuItem
+                                        Header="Nearest → Farthest"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.TimeNearestFarthest}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionTimeNearestFarthestSelectedCommand}" />
+                                    <MenuItem
+                                        Header="Farthest → Nearest"
+                                        ToggleType="Radio"
+                                        IsChecked="{Binding SelectedSortOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static local:SortOption.TimeFarthestNearest}, Mode=TwoWay}"
+                                        Command="{Binding SortOptionTimeFarthestNearestSelectedCommand}" />
+                                </MenuItem>
+                            </MenuFlyout>
+                        </Button.Flyout>
+
+
                         <Image
                             Classes="TopBarButtonIcon"
                             Source="/Assets/icons8-sort-48.png" />
@@ -143,8 +225,7 @@
                     <Button
                         Classes="TopBarButton"
                         Name="ButtonNotification"
-                        Command="{Binding SortCommand}"
-                        ToolTip.Tip="Turn On Notification"
+                        ToolTip.Tip="Toggle Notification"
                         ToolTip.ShowDelay="0" >
                         <Image
                             Classes="TopBarButtonIcon"
@@ -152,8 +233,6 @@
                     </Button>
                 </StackPanel>
             </Grid>
-
-
         </Border>
 
         <!-- Content area -->
