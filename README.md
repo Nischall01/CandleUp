@@ -7,9 +7,6 @@ CandleUp is a lightweight, cross-platform desktop app built with .NET and Avalon
 - Optional anniversary tracking
 - Set reminders for upcoming events
 - Organize notes for each person or event
-- Light, Dark, and Custom themes
-- 12/24 hour time format support
-- Runs in the background
 
 ## Installation
 1. Clone the repository:
