@@ -1,0 +1,37 @@
+<Application
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="CandleUp.App"
+    xmlns:local="using:CandleUp"
+    RequestedThemeVariant="Default" >
+    <!-- "Default" ThemeVariant follows the system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <LinearGradientBrush
+            x:Key="DefaultBackground"
+            StartPoint="0%,0%"
+            EndPoint="100%,0%" >
+            <GradientStop
+                Color="#FF434343"
+                Offset="0.0" />
+            <GradientStop
+                Color="#FF2A2A2A"
+                Offset="0.5" />
+            <GradientStop
+                Color="#FF000000"
+                Offset="1.0" />
+        </LinearGradientBrush>
+        <Color
+            x:Key="DarkBackground" >
+            #23201B
+        </Color>
+    </Application.Resources>
+</Application>

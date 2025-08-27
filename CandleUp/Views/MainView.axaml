@@ -1,0 +1,282 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:CandleUp.ViewModels"
+    mc:Ignorable="d"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    x:DataType="vm:MainViewModel"
+    Background="{DynamicResource DarkBackground}"
+    Foreground="White"
+    x:Class="CandleUp.Views.MainView" >
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <!-- All button style -->
+        <Style
+            Selector="Button" >
+            <Setter
+                Property="CornerRadius"
+                Value="8" />
+        </Style>
+        <!-- Top bar buttons -->
+        <Style
+            Selector="Button.TopBarButton" >
+            <Setter
+                Property="Background"
+                Value="Transparent" />
+        </Style>
+        <!-- Top bar buttons icons -->
+        <Style
+            Selector="Image.TopBarButtonIcon" >
+            <Setter
+                Property="Height"
+                Value="22" />
+            <Setter
+                Property="Width"
+                Value="22" />
+        </Style>
+        <!-- Action buttons inside cards -->
+        <Style
+            Selector="Button.ActionButton" >
+            <Setter
+                Property="Background"
+                Value="Transparent" />
+            <Setter
+                Property="Focusable"
+                Value="False" />
+            <Setter
+                Property="IsTabStop"
+                Value="False" />
+        </Style>
+        <!-- Action buttons' icons -->
+        <Style
+            Selector="Image.ActionButtonIcon" >
+            <Setter
+                Property="Height"
+                Value="16" />
+            <Setter
+                Property="Width"
+                Value="16" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid
+        RowDefinitions="Auto,*" >
+        <!-- Top bar -->
+        <Border
+            Name="ToolBar"
+            Grid.Row="0"
+            BorderThickness="0,0,0,1"
+            BorderBrush="#262626"
+            Padding="8" >
+            <Grid
+                ColumnDefinitions="*,*" >
+                <StackPanel
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    Margin="5,0,0,0"
+                    FlowDirection="LeftToRight"
+                    Spacing="5" >
+                    <Button
+                        Classes="TopBarButton"
+                        Name="ButtonAddNew"
+                        Command="{Binding AddNewPersonCommand}"
+                        ToolTip.Tip="Add new profile"
+                        ToolTip.ShowDelay="0" >
+                        <Image
+                            Classes="TopBarButtonIcon"
+                            Source="/Assets/icons8-add-user-male-48.png" />
+                    </Button>
+                    <Button
+                        Classes="TopBarButton"
+                        Name="ButtonAgeCalculator"
+                        Command="{Binding SortCommand}"
+                        ToolTip.Tip="Quick Age Calculation"
+                        ToolTip.ShowDelay="0" >
+                        <Image
+                            Classes="TopBarButtonIcon"
+                            Source="/Assets/Math.png" />
+                    </Button>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    FlowDirection="RightToLeft"
+                    Spacing="5" >
+                    <StackPanel />
+                    <Button
+                        Classes="TopBarButton"
+                        Name="ButtonSettings"
+                        Command="{Binding OpenSettingsCommand}"
+                        ToolTip.Tip="Settings"
+                        ToolTip.ShowDelay="0" >
+                        <Image
+                            Classes="TopBarButtonIcon"
+                            Source="/Assets/icons8-settings-48.png" />
+                    </Button>
+                    <Button
+                        Classes="TopBarButton"
+                        Name="ButtonBirthdayAgeSwitcher"
+                        Command="{Binding SwitchBirthdayAgeCommand}"
+                        ToolTip.Tip="Switch birthday and age position"
+                        ToolTip.ShowDelay="0" >
+                        <Image
+                            Classes="TopBarButtonIcon"
+                            Source="/Assets/icons8-sort-48(1).png" />
+                    </Button>
+                    <Button
+                        Classes="TopBarButton"
+                        Name="ButtonSort"
+                        Command="{Binding SortCommand}"
+                        ToolTip.Tip="Sort"
+                        ToolTip.ShowDelay="0" >
+                        <Image
+                            Classes="TopBarButtonIcon"
+                            Source="/Assets/icons8-sort-48.png" />
+                    </Button>
+                    <Button
+                        Classes="TopBarButton"
+                        Name="ButtonNotification"
+                        Command="{Binding SortCommand}"
+                        ToolTip.Tip="Turn On Notification"
+                        ToolTip.ShowDelay="0" >
+                        <Image
+                            Classes="TopBarButtonIcon"
+                            Source="/Assets/Notification.png" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+
+        </Border>
+
+        <!-- Content area -->
+        <Border
+            Grid.Row="1"
+            Padding="10" >
+            <ScrollViewer>
+                <ItemsControl
+                    x:Name="PeopleList"
+                    ItemsSource="{Binding People}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Profile Card -->
+                            <Border
+                                Name="ProfileCard"
+                                Margin="5,5,20,5"
+                                Padding="10" >
+                                <Grid
+                                    ColumnDefinitions="55,*" >
+                                    <!-- Avatar -->
+                                    <Image
+                                        Grid.Column="0"
+                                        Source="{Binding Avatar}"
+                                        Width="36"
+                                        Height="36" />
+
+                                    <!-- Right card -->
+                                    <Border
+                                        Grid.Column="1"
+                                        Background="#0B0B0B"
+                                        Padding="5"
+                                        CornerRadius="8" >
+
+                                        <Border.Styles>
+                                            <Style
+                                                Selector="Border:pointerover" >
+                                                <Setter
+                                                    Property="RenderTransform" >
+                                                    <TranslateTransform
+                                                        Y="-4" />
+                                                </Setter>
+                                            </Style>
+                                        </Border.Styles>
+
+
+                                        <Grid
+                                            RowDefinitions="Auto,*" >
+                                            <!-- Header row -->
+                                            <Grid
+                                                Grid.Row="0"
+                                                ColumnDefinitions="*,*,*" >
+                                                <TextBlock
+                                                    x:Name="Name"
+                                                    Grid.Column="0"
+                                                    Text="{Binding Name}"
+                                                    FontSize="18"
+                                                    Margin="5"
+                                                    Padding="3"
+                                                    ToolTip.Tip="{Binding Name}"
+                                                    ToolTip.ShowDelay="0" />
+                                                <TextBlock
+                                                    x:Name="AgeAndBirthDate"
+                                                    Grid.Column="1"
+                                                    Text="{Binding AgeAndBirthDateString}"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12" />
+                                                <StackPanel
+                                                    Grid.Column="2"
+                                                    Orientation="Horizontal"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Right"
+                                                    Spacing="5" >
+                                                    <Button
+                                                        Classes="ActionButton"
+                                                        ToolTip.Tip="Delete"
+                                                        ToolTip.ShowDelay="0"
+                                                        Command="{Binding DataContext.DeleteCommand, ElementName=PeopleList}"
+                                                        CommandParameter="{Binding}" >
+                                                        <Image
+                                                            Classes="ActionButtonIcon"
+                                                            Source="/Assets/icons8-delete-48.png" />
+                                                    </Button>
+                                                    <Button
+                                                        Classes="ActionButton"
+                                                        ToolTip.Tip="Edit"
+                                                        ToolTip.ShowDelay="0"
+                                                        Command="{Binding DataContext.EditCommand, ElementName=PeopleList}"
+                                                        CommandParameter="{Binding}" >
+                                                        <Image
+                                                            Classes="ActionButtonIcon"
+                                                            Source="/Assets/icons8-registration-48.png" />
+                                                    </Button>
+                                                    <Button
+                                                        Classes="ActionButton"
+                                                        ToolTip.Tip="Pin"
+                                                        ToolTip.ShowDelay="0"
+                                                        Command="{Binding DataContext.PinCommand, ElementName=PeopleList}"
+                                                        CommandParameter="{Binding}" >
+                                                        <Image
+                                                            Classes="ActionButtonIcon"
+                                                            Source="/Assets/icons8-pin-48.png" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <!-- Age row -->
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                x:Name="BirthDateAndAge"
+                                                Text="{Binding BirthDateAndAgeString}"
+                                                FontSize="28"
+                                                Margin="5"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

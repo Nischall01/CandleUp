@@ -1,0 +1,139 @@
+﻿<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:CandleUp.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:customControls="clr-namespace:CandleUp.CustomControls"
+    mc:Ignorable="d"
+    MinWidth="400"
+    MinHeight="350"
+    Width="400"
+    Height="350"
+    MaxWidth="500"
+    MaxHeight="450"
+    x:Class="CandleUp.Views.EditProfileWindow"
+    x:DataType="vm:EditProfileWindowViewModel"
+    RequestedThemeVariant="Dark"
+    Icon="/Assets/avalonia-logo.ico"
+    WindowStartupLocation="CenterOwner"
+    ShowInTaskbar="False"
+    Background="{DynamicResource DarkBackground}"
+    Title="Edit Profile" >
+
+    <Design.DataContext>
+        <vm:EditProfileWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style
+            Selector="Button" >
+            <Setter
+                Property="Background"
+                Value="#0B0B0B" />
+            <Setter
+                Property="CornerRadius"
+                Value="8" />
+        </Style>
+        <Style
+            Selector="Button.TransparentButton" >
+            <Setter
+                Property="Background"
+                Value="Transparent" />
+        </Style>
+        <Style
+            Selector="Button:disabled" >
+            <Setter
+                Property="Template" >
+                <ControlTemplate>
+                    <Border
+                        BorderThickness="1"
+                        Padding="{TemplateBinding Padding}"
+                        Background="#1D1D1D"
+                        CornerRadius="8" >
+                        <ContentPresenter
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </Window.Styles>
+
+    <Grid
+        RowDefinitions="*,50"
+        ClipToBounds="False" >
+        <StackPanel
+            Grid.Row="0"
+            Margin="10"
+            Spacing="15" >
+
+            <StackPanel
+                Spacing="8" >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="Gray"
+                    CornerRadius="12"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Height="50"
+                    Width="50" >
+                    <Image
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Source="/Assets/icons8-user-48.png"
+                        Width="35"
+                        Height="35" />
+                </Border>
+                <Button
+                    Classes="TransparentButton"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Change Profile Picture" />
+            </StackPanel>
+
+            <StackPanel
+                Spacing="4" >
+                <TextBlock
+                    Text="Name:" />
+                <TextBox
+                    Name="NameTextBox"
+                    x:Name="Name"
+                    Text="{Binding Name, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel
+                Spacing="4" >
+                <TextBlock
+                    Text="Birthdate:" />
+                <customControls:DateInputBox
+                    SelectedDate="{Binding BirthDate, Mode=TwoWay}"
+                    IsValidDate="{Binding IsAValidDate, Mode=OneWayToSource}"
+                    Spacing="12"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+            </StackPanel>
+
+            <TextBlock
+                Foreground="Yellow"
+                IsVisible="True"
+                Text="{Binding ErrorText}"
+                ToolTip.Tip=""
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Spacing="5" >
+            <Button
+                Content="Save"
+                Command="{Binding ConfirmCommand}" />
+            <Button
+                Content="Cancel"
+                Command="{Binding CancelCommand}" />
+        </StackPanel>
+    </Grid>
+
+</Window>

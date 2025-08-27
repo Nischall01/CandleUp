@@ -1,0 +1,83 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:customControls="clr-namespace:CandleUp.CustomControls"
+    mc:Ignorable="d"
+    x:DataType="customControls:DateInputBox"
+    x:Class="CandleUp.CustomControls.DateInputBox" >
+
+    <Border
+        Padding="8" >
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="{Binding Spacing, RelativeSource={RelativeSource AncestorType=customControls:DateInputBox}}" >
+            <TextBox
+                Name="YearTextBox"
+                MaxLength="4"
+                KeyDown="DigitOnlyKeyDown"
+                TextChanging="YearTextBox_OnTextChanging"
+                Text="{Binding Year, Mode=TwoWay}"
+                PastingFromClipboard="YearTextBox_OnPastingFromClipboard"
+                ContextFlyout="{x:Null}"
+                Watermark="Year" />
+
+            <ComboBox
+                Name="MonthComboBox"
+                SelectionChanged="MonthComboBox_OnSelectionChanged"
+                SelectedIndex="{Binding Month, Mode=TwoWay}"
+                PlaceholderForeground="{DynamicResource TextControlPlaceholderForeground}"
+                PlaceholderText="Month" >
+                <ComboBoxItem
+                    Tag="1"
+                    Content="Jan" />
+                <ComboBoxItem
+                    Tag="2"
+                    Content="Feb" />
+                <ComboBoxItem
+                    Tag="3"
+                    Content="Mar" />
+                <ComboBoxItem
+                    Tag="4"
+                    Content="Apr" />
+                <ComboBoxItem
+                    Tag="5"
+                    Content="May" />
+                <ComboBoxItem
+                    Tag="6"
+                    Content="Jun" />
+                <ComboBoxItem
+                    Tag="7"
+                    Content="Jul" />
+                <ComboBoxItem
+                    Tag="8"
+                    Content="Aug" />
+                <ComboBoxItem
+                    Tag="9"
+                    Content="Sep" />
+                <ComboBoxItem
+                    Tag="10"
+                    Content="Oct" />
+                <ComboBoxItem
+                    Tag="11"
+                    Content="Nov" />
+                <ComboBoxItem
+                    Tag="12"
+                    Content="Dec" />
+            </ComboBox>
+
+            <TextBox
+                Name="DayTextBox"
+                MaxLength="2"
+                KeyDown="DigitOnlyKeyDown"
+                TextChanging="DayTextBox_OnTextChanging"
+                Text="{Binding Day, Mode=TwoWay}"
+                PastingFromClipboard="DayTextBox_OnPastingFromClipboard"
+                ContextFlyout="{x:Null}"
+                Watermark="Day" />
+        </StackPanel>
+    </Border>
+</UserControl>
